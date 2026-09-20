@@ -14,14 +14,14 @@ export default function Home() {
     return <div className="min-h-screen flex items-center justify-center bg-dark-bg text-neon-blue">Cargando...</div>;
   }
   
-  const heroData = {
+  const heroData = content.hero?.data || {
     title_prefix: "Nahuel Maximiliano",
     title_highlight: "Bustos",
     subtitle: "Construyo arquitecturas robustas y experiencias digitales que generan impacto real. Mi enfoque combina excelencia técnica, visión estratégica de negocio y resolución de problemas complejos.",
     tag: "SOFTWARE & PRODUCT ENGINEERING",
-    github_url: "https://github.com/tu-usuario",
-    linkedin_url: "https://linkedin.com/in/tu-perfil",
-    email: "tu@email.com"
+    github_url: "https://github.com/Nahuel-Maximiliano-Bustos",
+    linkedin_url: "https://www.linkedin.com/in/nahuel-maximiliano-bustos-b5b977288/",
+    email: "programandoconnahu@gmail.com"
   };
 
   return (
