@@ -10,9 +10,9 @@ export default function Footer() {
   };
 
   const heroData = content.hero?.data || {
-    github_url: "#",
-    linkedin_url: "#",
-    email: "test@test.com"
+    github_url: "https://github.com/Nahuel-Maximiliano-Bustos",
+    linkedin_url: "https://www.linkedin.com/in/nahuel-maximiliano-bustos-b5b977288/",
+    email: "programandoconnahu@gmail.com"
   };
 
   return (
