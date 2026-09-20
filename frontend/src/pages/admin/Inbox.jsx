@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import { Star, Trash2, Archive, Inbox as InboxIcon, AlertTriangle, RefreshCw, MailOpen, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { API_URL } from '../../config.js';
 
 export default function Inbox() {
   const [leads, setLeads] = useState([]);
@@ -14,7 +15,7 @@ export default function Inbox() {
     setIsLoading(true);
     const token = localStorage.getItem('token');
     try {
-      const res = await fetch('http://localhost:3001/api/leads', {
+      const res = await fetch(`${API_URL}/api/leads`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -31,7 +32,7 @@ export default function Inbox() {
   useEffect(() => {
     fetchLeads();
 
-    const socket = io('http://localhost:3001');
+    const socket = io(API_URL || '/');
     socket.on('new_lead', (lead) => {
       setLeads(prev => [lead, ...prev]);
     });

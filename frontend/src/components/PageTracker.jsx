@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { API_URL } from '../config.js';
 
 export default function PageTracker() {
   const location = useLocation();
@@ -10,7 +11,7 @@ export default function PageTracker() {
       return;
     }
 
-    fetch('http://localhost:3001/api/metrics/visit', {
+    fetch(`${API_URL}/api/metrics/visit`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -3,6 +3,7 @@ import { LayoutDashboard, Inbox, FolderKanban, Settings, LogOut, PanelLeftClose,
 import { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import { motion, AnimatePresence } from 'framer-motion';
+import { API_URL } from '../config.js';
 
 export default function AdminLayout() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ export default function AdminLayout() {
   const [toasts, setToasts] = useState([]);
 
   useEffect(() => {
-    const socket = io('http://localhost:3001');
+    const socket = io(API_URL || '/');
     
     socket.on('new_lead', (lead) => {
       const newToast = { 

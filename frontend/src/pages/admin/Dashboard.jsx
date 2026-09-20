@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Users, Activity } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { API_URL } from '../../config.js';
 
 export default function Dashboard() {
   const [metrics, setMetrics] = useState({ history: [], totalVisits: 0 });
@@ -11,7 +12,7 @@ export default function Dashboard() {
     const fetchMetrics = async () => {
       const token = localStorage.getItem('token');
       try {
-        const res = await fetch('http://localhost:3001/api/metrics', {
+        const res = await fetch(`${API_URL}/api/metrics`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (res.ok) {

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { API_URL } from '../config.js';
 
 const PortfolioContext = createContext();
 
@@ -15,8 +16,8 @@ export function PortfolioProvider({ children }) {
     async function fetchData() {
       try {
         const [contentRes, projectsRes] = await Promise.all([
-          fetch('http://localhost:3001/api/cms/content/public'),
-          fetch('http://localhost:3001/api/cms/projects')
+          fetch(`${API_URL}/api/cms/content/public`),
+          fetch(`${API_URL}/api/cms/projects`)
         ]);
         
         if (contentRes.ok) {

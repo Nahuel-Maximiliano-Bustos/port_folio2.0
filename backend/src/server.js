@@ -1,5 +1,7 @@
 import express from 'express';
 import http from 'http';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -62,6 +64,18 @@ app.use('/api/cms', cmsRoutes);
 
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date() });
+});
+
+// Serve frontend static files
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const frontendPath = path.join(__dirname, '../../frontend/dist');
+
+app.use(express.static(frontendPath));
+
+// Catch-all route for React Router
+app.get('*', (req, res) => {
+    res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
 const PORT = process.env.PORT || 3001;

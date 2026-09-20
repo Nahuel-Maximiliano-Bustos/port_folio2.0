@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Save, AlertCircle, CheckCircle, Code } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { API_URL } from '../../config.js';
 
 export default function ContentEditor() {
   const [content, setContent] = useState({});
@@ -34,7 +35,7 @@ export default function ContentEditor() {
 
   const fetchContent = async () => {
     try {
-      const res = await fetch('http://localhost:3001/api/cms/content/public');
+      const res = await fetch(`${API_URL}/api/cms/content/public`);
       if (res.ok) {
         const data = await res.json();
         setContent(data);

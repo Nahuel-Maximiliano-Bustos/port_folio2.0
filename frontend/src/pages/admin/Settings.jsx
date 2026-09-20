@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Bell, BellOff, Clock, Save } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { API_URL } from '../../config.js';
 
 export default function Settings() {
   const [isPushEnabled, setIsPushEnabled] = useState(false);
@@ -24,7 +25,7 @@ export default function Settings() {
   const fetchSettings = async () => {
     const token = localStorage.getItem('token');
     try {
-      const res = await fetch('http://localhost:3001/api/settings', {
+      const res = await fetch(`${API_URL}/api/settings`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -40,12 +41,12 @@ export default function Settings() {
   const saveSettings = async () => {
     const token = localStorage.getItem('token');
     try {
-      await fetch('http://localhost:3001/api/settings', {
+      await fetch(`${API_URL}/api/settings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ key: 'quiet_hours_start', value: quietHoursStart })
       });
-      await fetch('http://localhost:3001/api/settings', {
+      await fetch(`${API_URL}/api/settings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ key: 'quiet_hours_end', value: quietHoursEnd })
@@ -87,7 +88,7 @@ export default function Settings() {
       } else {
         // Subscribe
         const token = localStorage.getItem('token');
-        const vapidRes = await fetch('http://localhost:3001/api/push/vapidPublicKey', {
+        const vapidRes = await fetch(`${API_URL}/api/push/vapidPublicKey`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const { publicKey } = await vapidRes.json();
@@ -100,7 +101,7 @@ export default function Settings() {
         });
 
         // Send to backend
-        await fetch('http://localhost:3001/api/push/subscribe', {
+        await fetch(`${API_URL}/api/push/subscribe`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
           body: JSON.stringify(subscription)

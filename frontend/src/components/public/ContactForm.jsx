@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Send, CheckCircle, AlertCircle, Loader } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { API_URL } from '../../config.js';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ export default function ContactForm() {
     setErrorMsg('');
 
     try {
-      const res = await fetch('http://localhost:3001/api/leads', {
+      const res = await fetch(`${API_URL}/api/leads`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

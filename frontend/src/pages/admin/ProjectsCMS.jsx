@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Plus, Edit2, Trash2, Save, X, ToggleLeft, ToggleRight, Eye, EyeOff } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { API_URL } from '../../config.js';
 
 export default function ProjectsCMS() {
   const [projects, setProjects] = useState([]);
@@ -26,8 +27,8 @@ export default function ProjectsCMS() {
     const token = localStorage.getItem('token');
     try {
       const [projRes, secRes] = await Promise.all([
-        fetch('http://localhost:3001/api/cms/projects', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('http://localhost:3001/api/cms/sections')
+        fetch(`${API_URL}/api/cms/projects`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/api/cms/sections`)
       ]);
       if (handleFetchError(projRes) || handleFetchError(secRes)) return;
       if (projRes.ok) setProjects(await projRes.json());
@@ -51,7 +52,7 @@ export default function ProjectsCMS() {
     
     const token = localStorage.getItem('token');
     try {
-      const res = await fetch('http://localhost:3001/api/cms/sections/toggle', {
+      const res = await fetch(`${API_URL}/api/cms/sections/toggle`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ section_key: sectionKey, is_active: newState })
@@ -76,7 +77,7 @@ export default function ProjectsCMS() {
 
     const token = localStorage.getItem('token');
     const method = isCreating ? 'POST' : 'PUT';
-    const url = isCreating ? 'http://localhost:3001/api/cms/projects' : `http://localhost:3001/api/cms/projects/${isEditing}`;
+    const url = isCreating ? `${API_URL}/api/cms/projects` : `http://localhost:3001/api/cms/projects/${isEditing}`;
     
     try {
       const res = await fetch(url, {
